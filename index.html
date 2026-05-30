@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <style>
   :root {
     --gold: #C8991F;
@@ -396,12 +398,39 @@
     font-family: 'Cinzel Decorative', serif;
     font-size: clamp(1.8rem, 4vw, 3rem);
     line-height: 1.05;
-    margin-bottom: 0.75rem;
   }
   .section-title-light { color: var(--white); }
   .section-title-dark { color: var(--text-on-light); }
   .section-title-gold { color: var(--gold); }
 
+  /* ── ORNAMENTAL LINES (Refactored for proper alignment) ── */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  .section-header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    width: 100%;
+  }
+  .section-header-title h2 {
+    margin: 0;
+  }
+  .orn-line {
+    height: 1px;
+    flex: 1;
+    max-width: 180px;
+  }
+  .orn-line-gold { background: linear-gradient(to right, transparent, var(--gold)); }
+  .orn-line-gold-r { background: linear-gradient(to left, transparent, var(--gold)); }
+  .orn-line-dark { background: linear-gradient(to right, transparent, rgba(30,30,30,0.6)); }
+  .orn-line-dark-r { background: linear-gradient(to left, transparent, rgba(30,30,30,0.6)); }
+
+  /* Legacy ornament class for backward compatibility */
   .ornament {
     display: flex;
     align-items: center;
@@ -409,11 +438,6 @@
     gap: 1.25rem;
     margin-bottom: 3rem;
   }
-  .orn-line { height: 1px; flex: 1; max-width: 180px; }
-  .orn-line-gold { background: linear-gradient(to right, transparent, var(--gold)); }
-  .orn-line-gold-r { background: linear-gradient(to left, transparent, var(--gold)); }
-  .orn-line-dark { background: linear-gradient(to right, transparent, rgba(30,30,30,0.6)); }
-  .orn-line-dark-r { background: linear-gradient(to left, transparent, rgba(30,30,30,0.6)); }
 
   /* ── HISTORIA ── */
   .historia-grid {
@@ -428,16 +452,18 @@
   .historia-body p strong { color: var(--white); font-weight: 600; }
 
   .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
     gap: 1px;
     background: rgba(200,153,31,0.2);
     margin-top: 2.5rem;
   }
   .stat-box {
+    display: flex;
+    flex-direction: column;
     background: var(--black-soft);
     padding: 1.5rem 1rem;
     text-align: center;
+    flex: 1;
   }
   .stat-num {
     font-family: 'Cinzel Decorative', serif;
@@ -445,6 +471,7 @@
     color: var(--gold);
     display: block;
     line-height: 1;
+    margin-bottom: 0.5rem;
   }
   .stat-lbl {
     font-family: 'Cinzel', serif;
@@ -989,28 +1016,37 @@
     margin-bottom: 0;
   }
 
-  /* ── GALERÍA (white) ── */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
+  /* ── GALERÍA SWIPER ── */
+  .gallery-swiper {
     margin-top: 3rem;
+    position: relative;
   }
-  .g-item {
+  .gallery-swiper .swiper {
+    width: 100%;
+    padding-bottom: 40px;
+  }
+  .gallery-slide {
     aspect-ratio: 1;
     background: var(--white-off);
-    border: 1px solid rgba(0,0,0,0.08);
-    position: relative;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 8px;
     overflow: hidden;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .g-item.tall { grid-row: span 2; aspect-ratio: auto; }
-  .g-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
-  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
-  .g-item:hover img { transform: scale(1.04); }
+  .gallery-slide:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.2);
+  }
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .g-ph {
     font-family: 'Cinzel', serif;
     font-size: 0.6rem;
@@ -1020,16 +1056,17 @@
     text-align: center;
     padding: 1rem;
   }
-  .gallery-note {
-    margin-top: 2rem;
-    padding: 1.25rem 1.75rem;
-    border: 1px dashed rgba(0,0,0,0.2);
-    color: var(--text-muted-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #d4af37 !important;
+  }
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 24px;
+  }
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    color: #ffffff !important;
   }
 
   /* ── TIENDA (dark) ── */
@@ -1113,57 +1150,65 @@
   }
   .tienda-input-btn:hover { background: var(--gold-light); border-color: var(--gold-light); }
 
-  /* ── AGENDA (white) ── */
-  .agenda-coming {
-    margin-top: 3rem;
-    padding: 4rem 2rem;
-    border: 1px dashed rgba(0,0,0,0.15);
-    text-align: center;
+  /* ── AGENDA CARD ── */
+  .agenda-card {
+    display: flex;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 3rem auto 0;
+    padding: 2rem;
+    background: rgba(18, 18, 18, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 8px;
+  }
+  .agenda-card-image {
+    flex: 0 0 auto;
+  }
+  .agenda-card-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  .agenda-card-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    justify-content: center;
   }
-  .agenda-coming-icon {
-    font-family: 'Cinzel', serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--text-muted-light);
-    opacity: 0.85;
-    margin-bottom: 1rem;
+  .agenda-card-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    color: #d4af37;
+    margin-bottom: 1.5rem;
   }
-  .agenda-coming h3 {
+  .agenda-card-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(224, 224, 224, 0.85);
+    margin-bottom: 1.5rem;
+  }
+  .agenda-card-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    text-decoration: none;
     font-family: 'Cinzel', serif;
     font-size: 0.85rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted-light);
-  }
-  .agenda-coming p { font-size: 0.95rem; color: var(--text-muted-light); font-style: italic; max-width: 420px; }
-
-  .agenda-subscribe {
-    margin-top: 3rem;
-    background: var(--black);
-    padding: 2.5rem;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+    border-radius: 4px;
+    transition: all 0.3s;
     text-align: center;
   }
-  .agenda-subscribe h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
-  }
-  .agenda-subscribe p {
-    font-size: 0.92rem;
-    color: var(--text-muted-dark);
-    font-style: italic;
-    margin-bottom: 1.5rem;
+  .agenda-card-btn:hover {
+    background: #d4af37;
+    color: #121212;
   }
   .input-dark {
     width: 100%;
@@ -1301,73 +1346,126 @@
   }
   .cl-handle { font-size: 0.95rem; color: var(--text-on-light); font-style: italic; }
 
+  /* ── SECCIÓN OSCURA (Dark Theme) ── */
+  .seccion-oscura {
+    background: #121212 !important;
+    padding: 4rem 2rem;
+  }
+  .seccion-oscura h1,
+  .seccion-oscura h2,
+  .seccion-oscura h3,
+  .seccion-oscura h4,
+  .seccion-oscura h5,
+  .seccion-oscura h6 {
+    color: #e0e0e0 !important;
+  }
+  .seccion-oscura p,
+  .seccion-oscura span,
+  .seccion-oscura li {
+    color: rgba(224, 224, 224, 0.85) !important;
+  }
+  .seccion-oscura a {
+    color: rgba(224, 224, 224, 0.85) !important;
+    transition: color 0.2s;
+  }
+  .seccion-oscura a:hover {
+    color: #d4af37 !important;
+  }
+  .seccion-oscura .section-title,
+  .seccion-oscura .section-title-light,
+  .seccion-oscura .section-title-dark {
+    color: #e0e0e0 !important;
+  }
+  .seccion-oscura .section-title-gold {
+    color: #d4af37 !important;
+  }
+  .seccion-oscura .section-label,
+  .seccion-oscura .section-label-dark {
+    color: rgba(212, 175, 55, 0.8) !important;
+  }
+
+  /* Imágenes en secciones oscuras */
+  .seccion-oscura img {
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  .seccion-oscura .img-frame {
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+    background: rgba(18, 18, 18, 0.5);
+  }
+
   /* ── FOOTER ── */
   footer {
-    background: var(--black-soft);
-    border-top: 1px solid rgba(200,153,31,0.2);
-    padding: 5rem 2rem 2.5rem;
+    background: #1a1a1a;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 4rem 2rem 2.5rem;
   }
   .footer-inner { max-width: 1080px; margin: 0 auto; }
   .footer-top {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(200,153,31,0.12);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
     margin-bottom: 2.5rem;
   }
-  .footer-brand {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.5rem;
-    color: var(--white);
-    margin-bottom: 0.5rem;
+  .footer-col-left {
+    display: flex;
+    flex-direction: column;
   }
-  .footer-brand span { color: var(--gold); }
-  .footer-founding {
-    font-family: 'Cinzel', serif;
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    display: block;
+  .footer-col-right {
+    display: flex;
+    flex-direction: column;
   }
-  .footer-tagline { font-size: 0.92rem; font-style: italic; color: var(--text-muted-dark); max-width: 280px; margin-bottom: 1.5rem; }
+  .footer-bunker-text {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+    line-height: 1.6;
+  }
   .social-row { display: flex; gap: 0.75rem; }
   .soc-link {
-    width: 36px; height: 36px;
-    border: 1px solid rgba(200,153,31,0.2);
+    width: 40px; height: 40px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
     display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted-dark);
+    color: #d4af37;
     text-decoration: none;
-    font-size: 0.85rem;
-    transition: all 0.2s;
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+    border-radius: 4px;
   }
-  .soc-link:hover { border-color: var(--gold); color: var(--gold); }
+  .soc-link:hover {
+    border-color: #d4af37;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+  .soc-link i {
+    min-width: 24px;
+    min-height: 24px;
+  }
   .footer-col h4 {
     font-family: 'Cinzel', serif;
-    font-size: 0.62rem;
+    font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #d4af37;
     margin-bottom: 1.2rem;
   }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-  .footer-col a { color: var(--text-muted-dark); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
-  .footer-col a:hover { color: var(--white); }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-col a { color: rgba(255, 255, 255, 0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  .footer-col a:hover { color: #d4af37; }
   .footer-bottom {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
-    color: rgba(138,130,120,0.55);
-    flex-wrap: wrap;
-    gap: 1rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    gap: 0.5rem;
   }
-  .footer-bottom span { color: rgba(200,153,31,0.6); }
 
   /* ── COLORS BW ACCENT ── */
   /* Diagonal split strip between dark/light sections */
@@ -1427,7 +1525,10 @@
   }
   @media (max-width: 800px) {
     .historia-grid, .samba-grid, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-bunker-text { max-width: 100%; }
+    .agenda-card { flex-direction: column; gap: 2rem; padding: 1.5rem; }
+    .agenda-card-img { max-width: 100%; }
     /*
     .bento-grid {
       grid-template-columns: 1fr;
@@ -1459,8 +1560,6 @@
       z-index: 302;
     }
     .video-modal-dialog { width: 100%; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .g-item.wide { grid-column: span 1; aspect-ratio: 1; }
     nav {
       padding: 0 1.25rem;
       justify-content: flex-end;
@@ -1511,7 +1610,7 @@
     .bento-grid { padding: 0; }
     .join-banner { padding: 2rem 1.25rem; }
     */
-    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stats-row { flex-wrap: wrap; }
     .footer-top { grid-template-columns: 1fr; }
   }
 </style>
@@ -1600,11 +1699,11 @@
 <!-- HISTORIA -->
 <section id="historia" class="sec sec-dark">
   <div class="sec-inner">
-    <div class="reveal">
+    <div class="reveal section-header">
       <span class="section-label">Raíces · Desde 1963</span>
-      <h2 class="section-title section-title-light">Nuestra Historia</h2>
-      <div class="ornament">
+      <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
+        <h2 class="section-title section-title-light">Nuestra Historia</h2>
         <div class="orn-line orn-line-gold-r"></div>
       </div>
     </div>
@@ -1719,9 +1818,9 @@
         <div class="info-wrapper">
           <div class="samba-year-bg">2026</div>
           <span class="section-label">Samba Enredo · Carnaval 2026</span>
-          <h2 class="section-title section-title-gold" style="font-size: clamp(1.6rem,3vw,2.5rem);">La Historia<br>de la Música</h2>
-          <div class="ornament">
+          <div class="section-header-title" style="margin-bottom: 0;">
             <div class="orn-line orn-line-gold" style="max-width:80px"></div>
+            <h2 class="section-title section-title-gold" style="font-size: clamp(1.6rem,3vw,2.5rem); margin: 0;">La Historia<br>de la Música</h2>
             <div class="orn-line orn-line-gold-r" style="max-width:80px"></div>
           </div>
 
@@ -1772,50 +1871,63 @@
 <div class="split-strip"></div>
 
 <!-- GALERÍA -->
-<section id="galeria" class="sec sec-white">
+<section id="galeria" class="seccion-oscura">
   <div class="sec-inner">
-    <div class="reveal">
-      <span class="section-label section-label-dark">Imágenes</span>
-      <h2 class="section-title section-title-dark">Galería de Fotos</h2>
-      <div class="ornament">
-        <div class="orn-line orn-line-dark"></div>
-        <div class="orn-line orn-line-dark-r"></div>
+    <div class="reveal section-header">
+      <span class="section-label">Imágenes</span>
+      <div class="section-header-title">
+        <div class="orn-line orn-line-gold"></div>
+        <h2 class="section-title">Galería de Fotos</h2>
+        <div class="orn-line orn-line-gold-r"></div>
       </div>
-      <p style="color:var(--text-muted-light); font-style:italic; max-width:500px;">
+      <p style="color:rgba(224, 224, 224, 0.7); font-style:italic; max-width:500px;">
         Momentos eternizados en cada destello. La magia de Camba Cua capturada por el ojo del fotógrafo.
       </p>
     </div>
 
-    <!--
-      GALERÍA: Reemplazar cada <div class="g-ph"> por <img src="URL" alt="...">
-      cuando el fotógrafo comparta los links.
-    -->
-    <div class="gallery-grid reveal">
-      <div class="g-item tall">
-        <div class="g-ph">Foto 1<br>Vertical</div>
+    <!-- Swiper Gallery -->
+    <div class="gallery-swiper reveal">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 1<br>Vertical</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 2</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 3</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 4 — Panorámica</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 5</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 6</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="gallery-slide">
+              <div class="g-ph">Foto 7</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
       </div>
-      <div class="g-item">
-        <div class="g-ph">Foto 2</div>
-      </div>
-      <div class="g-item">
-        <div class="g-ph">Foto 3</div>
-      </div>
-      <div class="g-item wide">
-        <div class="g-ph">Foto 4 — Panorámica</div>
-      </div>
-      <div class="g-item">
-        <div class="g-ph">Foto 5</div>
-      </div>
-      <div class="g-item">
-        <div class="g-ph">Foto 6</div>
-      </div>
-      <div class="g-item">
-        <div class="g-ph">Foto 7</div>
-      </div>
-    </div>
-
-    <div class="gallery-note reveal">
-      <span>Las fotos se cargan cuando el fotógrafo comparta los links. Para agregar imágenes, reemplazar cada bloque <code>g-ph</code> con una etiqueta <code>&lt;img src="URL"&gt;</code>.</span>
     </div>
   </div>
 </section>
@@ -1825,11 +1937,11 @@
 <!-- TIENDA -->
 <section id="tienda" class="sec sec-dark">
   <div class="sec-inner">
-    <div class="reveal">
+    <div class="reveal section-header">
       <span class="section-label">Merch Oficial</span>
-      <h2 class="section-title section-title-light">La Tienda</h2>
-      <div class="ornament">
+      <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
+        <h2 class="section-title section-title-light">La Tienda</h2>
         <div class="orn-line orn-line-gold-r"></div>
       </div>
     </div>
@@ -1849,29 +1961,26 @@
 <div class="split-strip"></div>
 
 <!-- AGENDA -->
-<section id="agenda" class="sec sec-white">
+<section id="agenda" class="seccion-oscura">
   <div class="sec-inner">
-    <div class="reveal">
-      <span class="section-label section-label-dark">Fechas y Avisos</span>
-      <h2 class="section-title section-title-dark">Agenda</h2>
-      <div class="ornament">
-        <div class="orn-line orn-line-dark"></div>
-        <div class="orn-line orn-line-dark-r"></div>
+    <div class="reveal section-header">
+      <span class="section-label">Fechas y Avisos</span>
+      <div class="section-header-title">
+        <div class="orn-line orn-line-gold"></div>
+        <h2 class="section-title">Agenda</h2>
+        <div class="orn-line orn-line-gold-r"></div>
       </div>
     </div>
 
-    <div class="agenda-coming reveal">
-      <div class="agenda-coming-icon">Calendario</div>
-      <h3>Próximamente se publicarán las fechas</h3>
-      <p>Estamos preparando el calendario de ensayos, presentaciones y eventos. Seguinos en redes o dejá tu mail para no perderte nada.</p>
-    </div>
-
-    <div class="agenda-subscribe reveal">
-      <h3>Recibí los avisos</h3>
-      <p>Anotate y te avisamos de novedades, ensayos y fechas del carnaval.</p>
-      <input class="input-dark" type="text" placeholder="Tu nombre">
-      <input class="input-dark" type="email" placeholder="Tu correo electrónico">
-      <button class="btn" style="width:100%; text-align:center;">Suscribirme</button>
+    <div class="agenda-card reveal">
+      <div class="agenda-card-image">
+        <img src="assets/ensayos.jpeg" alt="Escuela de Percusión - Cátedra de Ritmo" class="agenda-card-img">
+      </div>
+      <div class="agenda-card-content">
+        <h3 class="agenda-card-title">¡Sentí el pulso de los carnavales de la dulzura!</h3>
+        <p class="agenda-card-body">No necesitás ser un experto, solo tenés que tener ganas de vivir el carnaval desde adentro. La Cátedra del Ritmo es nuestro corazón, el lugar donde la historia se transforma en sonido. Vení a aprender, a compartir el ensayo y a formar parte de la familia que hace vibrar nuestra ciudad. ¡El tambor te está esperando!</p>
+        <a href="https://wa.me/5493624642410?text=%C2%A1Hola!%20Vi%20la%20p%C3%A1gina%20de%20Camba%20Cua%20y%20me%20gustar%C3%ADa%20formar%20parte%20del%20equipo%20este%20a%C3%B1o.%20%C2%BFC%C3%B3mo%20hago%20para%20inscribirme%3F" class="agenda-card-btn" target="_blank">Quiero sumarme</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1881,11 +1990,11 @@
 <!-- DONACIONES -->
 <section id="donaciones" class="sec sec-dark">
   <div class="sec-inner">
-    <div class="reveal">
+    <div class="reveal section-header">
       <span class="section-label">Apoyanos</span>
-      <h2 class="section-title section-title-light">Donaciones</h2>
-      <div class="ornament">
+      <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
+        <h2 class="section-title section-title-light">Donaciones</h2>
         <div class="orn-line orn-line-gold-r"></div>
       </div>
       <p style="color:var(--text-muted-dark); font-style:italic; max-width:540px; font-size:1.05rem;">
@@ -1923,14 +2032,14 @@
 <div class="split-strip"></div>
 
 <!-- CONTACTO -->
-<section id="contacto" class="sec sec-white">
+<section id="contacto" class="seccion-oscura">
   <div class="sec-inner">
-    <div class="reveal">
-      <span class="section-label section-label-dark">Hablemos</span>
-      <h2 class="section-title section-title-dark">Contacto</h2>
-      <div class="ornament">
-        <div class="orn-line orn-line-dark"></div>
-        <div class="orn-line orn-line-dark-r"></div>
+    <div class="reveal section-header">
+      <span class="section-label">Hablemos</span>
+      <div class="section-header-title">
+        <div class="orn-line orn-line-gold"></div>
+        <h2 class="section-title">Contacto</h2>
+        <div class="orn-line orn-line-gold-r"></div>
       </div>
     </div>
 
@@ -2002,52 +2111,39 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div>
-        <div class="footer-brand">Camba <span>Cua</span></div>
-        <span class="footer-founding">Fundada el 6 de Enero de 1963</span>
-        <p class="footer-tagline">El Pueblito · Las Palmas · Chaco. Batería Cátedra del Ritmo. Tradición, ritmo e identidad desde 1963.</p>
+      <div class="footer-col footer-col-left">
+        <h4>Conectá con Camba Cua</h4>
+        <p class="footer-bunker-text">Estamos trabajando en nuestro bunker, preparando todo para el próximo carnaval. Seguinos en nuestras redes para no perderte nada.</p>
         <div class="social-row">
-          <a class="soc-link" href="https://www.instagram.com/asociacioncivil_cambacua" target="_blank" title="Instagram Comparsa">ig</a>
-          <a class="soc-link" href="https://www.instagram.com/catedradelritmo_" target="_blank" title="Instagram Batería">cr</a>
-          <a class="soc-link" href="https://www.tiktok.com/@cambacua2025" target="_blank" title="TikTok">tt</a>
-          <a class="soc-link" href="https://www.youtube.com/@CambaCua1963" target="_blank" title="YouTube">yt</a>
+          <a class="soc-link" href="#" target="_blank" aria-label="Seguinos en Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a class="soc-link" href="#" target="_blank" aria-label="Seguinos en Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a class="soc-link" href="https://wa.me/5493624642410?text=%C2%A1Hola!%20Vi%20la%20p%C3%A1gina%20de%20Camba%20Cua%20y%20me%20gustar%C3%ADa%20formar%20parte%20del%20equipo%20este%20a%C3%B1o.%20%C2%BFC%C3%B3mo%20hago%20para%20inscribirme%3F" target="_blank" aria-label="Contactame por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a class="soc-link" href="#" target="_blank" aria-label="Seguinos en TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
         </div>
       </div>
 
-      <div class="footer-col">
-        <h4>La Comparsa</h4>
+      <div class="footer-col footer-col-right">
+        <h4>Ayuda</h4>
         <ul>
-          <li><a href="#historia">Historia</a></li>
-          <!-- <li><a href="#comunidad">Comunidad</a></li> -->
-          <li><a href="#samba">Samba 2026</a></li>
-          <li><a href="#galeria">Galería</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Participar</h4>
-        <ul>
-          <li><a href="#tienda">Tienda</a></li>
-          <li><a href="#agenda">Agenda</a></li>
-          <li><a href="#donaciones">Donaciones</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4>Redes</h4>
-        <ul>
-          <li><a href="https://www.instagram.com/asociacioncivil_cambacua" target="_blank">Instagram Comparsa</a></li>
-          <li><a href="https://www.instagram.com/catedradelritmo_" target="_blank">Instagram Batería</a></li>
-          <li><a href="https://www.tiktok.com/@cambacua2025" target="_blank">TikTok</a></li>
-          <li><a href="https://www.youtube.com/@CambaCua1963" target="_blank">YouTube</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#faq">Preguntas Frecuentes</a></li>
+          <li><a href="mailto:contacto@cambacua.com">Feedback</a></li>
+          <li><a href="mailto:contacto@cambacua.com">Contactanos</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p>© 2025 Camba Cua · El Pueblito, Las Palmas, Chaco · Hecho en el Chaco</p>
-      <p>Batería <span>·</span> Cátedra del Ritmo</p>
+      <p>© 2026 Camba Cua - Todos los derechos reservados.</p>
+      <p>Sitio desarrollado por Emmanuel Ruiz.</p>
     </div>
   </div>
 </footer>
@@ -2235,6 +2331,26 @@
     el.style.transitionDelay = (i * 0.08) + 's';
     el.classList.add('reveal');
     obs.observe(el);
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const gallerySwiper = new Swiper('.gallery-swiper .swiper', {
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    slidesPerView: 1,
+    spaceBetween: 20,
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+    },
   });
 </script>
 </body>
