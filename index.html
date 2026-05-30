@@ -1,12 +1,2241 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=/camba-cua.html" />
-  <title>Camba Cua</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camba Cua — Comparsa desde 1963</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8991F;
+    --gold-light: #E2B84A;
+    --gold-pale: #F0DDA0;
+    --black: #0B0B0B;
+    --black-soft: #141414;
+    --black-mid: #1E1E1E;
+    --black-light: #2A2A2A;
+    --white: #F5F3EE;
+    --white-off: #E8E4DC;
+    --white-dim: #C8C2B4;
+    --text-on-dark: #E8E4DC;
+    --text-muted-dark: #8A8278;
+    --text-on-light: #1A1A1A;
+    --text-muted-light: #5A5550;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text-on-dark);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200, 153, 31, 0.25);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 62px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .nav-links li { display: flex; }
+  .nav-links a {
+    position: relative;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.65rem 1rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.45rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus-visible {
+    color: var(--gold);
+    text-shadow: 0 0 14px rgba(200, 153, 31, 0.5);
+    outline: none;
+  }
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: none;
+    position: relative;
+    z-index: 110;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .nav-toggle-box {
+    width: 26px;
+    height: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .nav-toggle-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  body.nav-open { overflow: hidden; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 7rem 2rem 5rem;
+    background: var(--black);
+    overflow: hidden;
+  }
+
+  .hero-bg-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(200,153,31,0.04) 80px),
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(200,153,31,0.04) 80px);
+    pointer-events: none;
+  }
+
+  .hero-bg-glow {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(200,153,31,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-shields {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.9s 0s ease both;
+    position: relative;
+  }
+
+  .shield-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  /* Escudo circular con borde dorado */
+  .shield-hex {
+    width: 130px;
+    height: 130px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+    transition: transform 0.3s;
+  }
+  .shield-hex:hover { transform: scale(1.05); }
+  .shield-hex img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .shield-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+    text-align: center;
+    max-width: 110px;
+  }
+
+  .hero-divider-v {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-div-line { width: 1px; height: 50px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
+
+  .hero-text-block {
+    text-align: center;
+    position: relative;
+    animation: fadeUp 0.9s 0.25s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(3.2rem, 9vw, 7rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-title-accent {
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.2rem 0;
+    animation: fadeUp 1s 0.35s ease both;
+  }
+  .hero-rule-line { width: 60px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .hero-rule-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hero-founding {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+    animation: fadeUp 1s 0.45s ease both;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-place {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--white-dim);
+    animation: fadeUp 1s 0.55s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-cta .btn:nth-child(1) { animation: fadeUp 0.9s 0.55s ease both; }
+  .hero-cta .btn:nth-child(2) { animation: fadeUp 0.9s 0.7s ease both; }
+
+  .btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    border-radius: 2px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+  }
+  .btn-secondary {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: var(--gold);
+    background: transparent;
+  }
+  .btn-secondary:hover {
+    background: rgba(200, 153, 31, 0.1);
+    color: var(--gold-light);
+    border-color: var(--gold-light);
+    transform: translateY(-2px);
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+    color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(200, 153, 31, 0.4);
+  }
+  .btn:not(.btn-primary):not(.btn-secondary):not(.btn-on-light):hover {
+    background: var(--gold);
+    color: var(--black);
+    transform: translateY(-2px);
+  }
+  .btn-white {
+    border-color: var(--white);
+    color: var(--white);
+  }
+  .btn-white:hover { background: var(--white); color: var(--black); }
+  .btn-on-light {
+    border-color: var(--text-on-light);
+    color: var(--text-on-light);
+  }
+  .btn-on-light:hover { background: var(--text-on-light); color: var(--white); }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    animation: fadeUpCenter 0.9s 1s ease both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollBounce 2.2s ease-in-out infinite;
+  }
+  .scroll-label { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(200,153,31,0.5); }
+
+  /* ── SHARED SECTION STYLES ── */
+  .sec { padding: 7rem 2rem; }
+  .sec-inner { max-width: 1080px; margin: 0 auto; }
+  .sec-dark { background: var(--black); }
+  .sec-mid { background: var(--black-soft); }
+  .sec-white { background: var(--white); color: var(--text-on-light); }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .section-label-dark { color: var(--text-muted-light); }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+    margin-bottom: 0.75rem;
+  }
+  .section-title-light { color: var(--white); }
+  .section-title-dark { color: var(--text-on-light); }
+  .section-title-gold { color: var(--gold); }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .orn-line { height: 1px; flex: 1; max-width: 180px; }
+  .orn-line-gold { background: linear-gradient(to right, transparent, var(--gold)); }
+  .orn-line-gold-r { background: linear-gradient(to left, transparent, var(--gold)); }
+  .orn-line-dark { background: linear-gradient(to right, transparent, rgba(30,30,30,0.6)); }
+  .orn-line-dark-r { background: linear-gradient(to left, transparent, rgba(30,30,30,0.6)); }
+
+  /* ── HISTORIA ── */
+  .historia-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .historia-body p { margin-bottom: 1.25rem; font-size: 1.05rem; color: var(--text-on-dark); }
+  .historia-body p em { color: var(--gold-light); font-style: italic; }
+  .historia-body p strong { color: var(--white); font-weight: 600; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(200,153,31,0.2);
+    margin-top: 2.5rem;
+  }
+  .stat-box {
+    background: var(--black-soft);
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  .historia-img-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .img-frame {
+    border: 1px solid rgba(200,153,31,0.25);
+    background: var(--black-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .img-frame::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 1px solid rgba(200,153,31,0.1);
+    pointer-events: none;
+  }
+  .img-frame-tall { aspect-ratio: 2/3; }
+  .img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-ph {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: rgba(200,153,31,0.3);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .founder-card {
+    border-top: 2px solid var(--gold);
+    background: var(--black-mid);
+    padding: 1.5rem;
+  }
+  .founder-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .founder-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+  }
+  .founder-place {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-muted-dark);
+    margin-top: 0.2rem;
+  }
+
+  /* ── COMUNIDAD — Bento editorial ── TEMPORALMENTE OCULTO */
+  /*
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1.75rem;
+    margin-top: 3.5rem;
+  }
+  .bento-card {
+    background: transparent;
+    padding: 2rem 1.75rem;
+    text-align: left;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  }
+  .bento-card:hover {
+    border-color: rgba(200, 153, 31, 0.2);
+    background: rgba(245, 243, 238, 0.45);
+  }
+  .bento-card--featured {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    padding: 2.5rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 280px;
+  }
+  .bento-card--featured:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+    border-color: rgba(200, 153, 31, 0.35);
+    background: rgba(245, 243, 238, 0.6);
+  }
+  .bento-card:nth-child(2) { grid-column: 3 / 5; grid-row: 1; }
+  .bento-card:nth-child(3) { grid-column: 3 / 4; grid-row: 2; }
+  .bento-card:nth-child(4) { grid-column: 4 / 5; grid-row: 2; }
+  .bento-card:nth-child(5) { grid-column: 1 / 2; grid-row: 3; }
+  .bento-card:nth-child(6) { grid-column: 2 / 5; grid-row: 3; }
+
+  .bento-num {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1;
+    color: rgba(200, 153, 31, 0.18);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .bento-card--featured .bento-num {
+    font-size: 4rem;
+    color: rgba(200, 153, 31, 0.22);
+    margin-bottom: 1.5rem;
+  }
+  .bento-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-on-light);
+    margin-bottom: 0.65rem;
+  }
+  .bento-card--featured .bento-name {
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    color: var(--text-on-light);
+  }
+  .bento-desc {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-muted-light);
+    font-style: normal;
+    max-width: 36ch;
+  }
+  .bento-card--featured .bento-desc {
+    font-size: 1.05rem;
+    max-width: 42ch;
+  }
+
+  .join-banner {
+    margin-top: 4rem;
+    background: var(--black);
+    padding: 3rem 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    border-radius: 2px;
+  }
+  .join-text h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .join-text p {
+    font-size: 1rem;
+    color: var(--text-muted-dark);
+    font-style: italic;
+    max-width: 42ch;
+  }
+  .join-banner .btn-primary {
+    flex-shrink: 0;
+  }
+  */
+
+  /* ── SAMBA ENREDO ── */
+  .samba-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .info-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .samba-year-bg {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 7rem;
+    color: rgba(200,153,31,0.07);
+    line-height: 1;
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    user-select: none;
+    pointer-events: none;
+  }
+  .samba-content { position: relative; }
+
+  .samba-theme-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .samba-desc { font-size: 1.02rem; color: var(--text-muted-dark); margin-bottom: 1rem; }
+
+  .samba-meta {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,153,31,0.2);
+  }
+  .meta-item {}
+  .meta-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .meta-val { font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold); }
+
+  .samba-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .video-credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    text-align: center;
+  }
+  .video-credit-item {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  .video-credit-item span {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .video-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: 1px solid rgba(200, 153, 31, 0.2);
+    border-radius: 2px;
+    background: var(--black-mid);
+    cursor: pointer;
+    overflow: hidden;
+    display: block;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+  .video-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--black), var(--gold), var(--white), var(--gold), var(--black));
+    z-index: 3;
+    pointer-events: none;
+  }
+  .video-card:hover {
+    border-color: rgba(200, 153, 31, 0.45);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  }
+  .video-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease, filter 0.5s ease;
+  }
+  .video-card:hover .video-card-bg {
+    transform: scale(1.05);
+    filter: brightness(1.12);
+  }
+  .video-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: background 0.5s ease;
+    z-index: 1;
+  }
+  .video-card:hover .video-card-overlay {
+    background: rgba(0, 0, 0, 0.38);
+  }
+  .video-card-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 153, 31, 0.55);
+    background: rgba(11, 11, 11, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+  .video-card-play-icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--gold);
+    margin-left: 5px;
+  }
+  .video-card:hover .video-card-play {
+    transform: translate(-50%, -50%) scale(1.1);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 28px rgba(200, 153, 31, 0.35);
+  }
+
+  .samba-letra-block {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(200, 153, 31, 0.15);
+    text-align: center;
+  }
+  .samba-letra-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .letra-toggle {
+    margin-top: 1rem;
+  }
+
+  .video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  .video-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .video-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .video-modal-dialog {
+    position: relative;
+    width: min(960px, 100%);
+    z-index: 1;
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.5s ease;
+  }
+  .video-modal.is-open .video-modal-dialog {
+    transform: translateY(0) scale(1);
+  }
+  .video-modal-close {
+    position: absolute;
+    top: -2.75rem;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(200, 153, 31, 0.35);
+    border-radius: 2px;
+    background: rgba(11, 11, 11, 0.6);
+    color: var(--white);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .video-modal-close:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    background: rgba(11, 11, 11, 0.9);
+  }
+  .video-modal-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--black);
+    border: 1px solid rgba(200, 153, 31, 0.25);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .video-modal-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ── LYRICS MODAL ── */
+  .letra-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 310;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .letra-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .letra-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+  .letra-modal-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    z-index: 1;
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+  .letra-modal.is-open .letra-modal-dialog {
+    transform: translateY(0) scale(1);
+  }
+  .letra-modal-close {
+    position: absolute;
+    top: -2.75rem;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(200, 153, 31, 0.35);
+    border-radius: 2px;
+    background: rgba(11, 11, 11, 0.6);
+    color: var(--white);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    z-index: 2;
+  }
+  .letra-modal-close:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    background: rgba(11, 11, 11, 0.9);
+  }
+  .letra-modal-content {
+    background: var(--black-mid);
+    border: 1px solid rgba(200, 153, 31, 0.25);
+    border-radius: 2px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200, 153, 31, 0.4) rgba(11, 11, 11, 0.3);
+  }
+  .letra-modal-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .letra-modal-content::-webkit-scrollbar-track {
+    background: rgba(11, 11, 11, 0.3);
+    border-radius: 3px;
+  }
+  .letra-modal-content::-webkit-scrollbar-thumb {
+    background: rgba(200, 153, 31, 0.4);
+    border-radius: 3px;
+  }
+  .letra-modal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 153, 31, 0.6);
+  }
+  .letra-modal-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    line-height: 1.2;
+  }
+  .letra-modal-body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--white-dim);
+    font-style: italic;
+    text-align: center;
+  }
+  .letra-modal-body p {
+    margin-bottom: 1rem;
+  }
+  .letra-modal-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── GALERÍA (white) ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin-top: 3rem;
+  }
+  .g-item {
+    aspect-ratio: 1;
+    background: var(--white-off);
+    border: 1px solid rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .g-item.tall { grid-row: span 2; aspect-ratio: auto; }
+  .g-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+  .g-item:hover img { transform: scale(1.04); }
+  .g-ph {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+  }
+  .gallery-note {
+    margin-top: 2rem;
+    padding: 1.25rem 1.75rem;
+    border: 1px dashed rgba(0,0,0,0.2);
+    color: var(--text-muted-light);
+    font-size: 0.9rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* ── TIENDA (dark) ── */
+  .tienda-coming {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 5rem 2rem;
+    border: 1px solid rgba(200,153,31,0.2);
+    background: var(--black-mid);
+    position: relative;
+    overflow: hidden;
+  }
+  .tienda-coming::before {
+    content: 'PRÓXIMAMENTE';
+    position: absolute;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 8rem;
+    color: rgba(200,153,31,0.04);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: 0.1em;
+  }
+  .tienda-coming-icon {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.75;
+    margin-bottom: 1rem;
+  }
+  .tienda-coming h3 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: var(--gold);
+  }
+  .tienda-coming p {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text-muted-dark);
+    max-width: 460px;
+  }
+  .tienda-notify {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    z-index: 1;
+  }
+  .tienda-input {
+    flex: 1;
+    background: var(--black);
+    border: 1px solid rgba(200,153,31,0.35);
+    border-right: none;
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    outline: none;
+  }
+  .tienda-input::placeholder { color: var(--text-muted-dark); font-style: italic; }
+  .tienda-input:focus { border-color: var(--gold); }
+  .tienda-input-btn {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--black);
+    padding: 0.75rem 1.25rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .tienda-input-btn:hover { background: var(--gold-light); border-color: var(--gold-light); }
+
+  /* ── AGENDA (white) ── */
+  .agenda-coming {
+    margin-top: 3rem;
+    padding: 4rem 2rem;
+    border: 1px dashed rgba(0,0,0,0.15);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .agenda-coming-icon {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted-light);
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
+  .agenda-coming h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted-light);
+  }
+  .agenda-coming p { font-size: 0.95rem; color: var(--text-muted-light); font-style: italic; max-width: 420px; }
+
+  .agenda-subscribe {
+    margin-top: 3rem;
+    background: var(--black);
+    padding: 2.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .agenda-subscribe h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .agenda-subscribe p {
+    font-size: 0.92rem;
+    color: var(--text-muted-dark);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .input-dark {
+    width: 100%;
+    background: var(--black-soft);
+    border: 1px solid rgba(200,153,31,0.25);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 0.75rem;
+  }
+  .input-dark:focus { border-color: var(--gold); }
+  .input-dark::placeholder { color: var(--text-muted-dark); font-style: italic; }
+
+  /* ── DONACIONES (dark) ── */
+  .donaciones-coming {
+    margin-top: 3rem;
+    padding: 4rem 2rem;
+    border: 1px solid rgba(200,153,31,0.15);
+    background: var(--black-mid);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .donaciones-coming h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .donaciones-coming p {
+    font-size: 1rem;
+    color: var(--text-muted-dark);
+    font-style: italic;
+    max-width: 460px;
+  }
+  .donaciones-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: rgba(200,153,31,0.15);
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 700px;
+  }
+  .don-method {
+    background: var(--black-soft);
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .don-method-icon {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+  .don-method-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted-dark);
+  }
+  .don-method-detail { font-size: 0.85rem; color: rgba(200,153,31,0.4); font-style: italic; }
+
+  /* ── CONTACTO (white) ── */
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 5rem;
+    margin-top: 3rem;
+  }
+  .contacto-form { display: flex; flex-direction: column; gap: 0.85rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+  .input-light {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.18);
+    color: var(--text-on-light);
+    padding: 0.75rem 1rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-light:focus { border-color: var(--text-on-light); }
+  .input-light::placeholder { color: var(--text-muted-light); font-style: italic; }
+  textarea.input-light { resize: vertical; min-height: 130px; }
+
+  .contacto-links { display: flex; flex-direction: column; gap: 0; }
+  .contact-link-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    text-decoration: none;
+    transition: padding-left 0.2s;
+  }
+  .contact-link-item:hover { padding-left: 0.5rem; }
+  .cl-icon {
+    width: 42px; height: 42px;
+    border: 1px solid rgba(0,0,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    color: var(--text-on-light);
+  }
+  .cl-body {}
+  .cl-platform {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted-light);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  .cl-handle { font-size: 0.95rem; color: var(--text-on-light); font-style: italic; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black-soft);
+    border-top: 1px solid rgba(200,153,31,0.2);
+    padding: 5rem 2rem 2.5rem;
+  }
+  .footer-inner { max-width: 1080px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(200,153,31,0.12);
+    margin-bottom: 2.5rem;
+  }
+  .footer-brand {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .footer-brand span { color: var(--gold); }
+  .footer-founding {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .footer-tagline { font-size: 0.92rem; font-style: italic; color: var(--text-muted-dark); max-width: 280px; margin-bottom: 1.5rem; }
+  .social-row { display: flex; gap: 0.75rem; }
+  .soc-link {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(200,153,31,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted-dark);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0;
+  }
+  .soc-link:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-col h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { color: var(--text-muted-dark); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(138,130,120,0.55);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-bottom span { color: rgba(200,153,31,0.6); }
+
+  /* ── COLORS BW ACCENT ── */
+  /* Diagonal split strip between dark/light sections */
+  .split-strip {
+    height: 3px;
+    background: linear-gradient(to right, var(--black), var(--gold), var(--white), var(--gold), var(--black));
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUpCenter {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.45; }
+    50% { transform: translateY(8px); opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.9; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .samba-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+  @media (max-width: 1100px) {
+    .nav-links { gap: 0.75rem; }
+    .nav-links a { font-size: 0.68rem; padding: 0.65rem 0.7rem; }
+    .nav-links a::after { left: 0.7rem; right: 0.7rem; }
+    /*
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .bento-card--featured {
+      grid-column: 1 / 3;
+      grid-row: 1;
+      min-height: 220px;
+    }
+    .bento-card:nth-child(2) { grid-column: 1; grid-row: 2; }
+    .bento-card:nth-child(3) { grid-column: 2; grid-row: 2; }
+    .bento-card:nth-child(4) { grid-column: 1; grid-row: 3; }
+    .bento-card:nth-child(5) { grid-column: 2; grid-row: 3; }
+    .bento-card:nth-child(6) { grid-column: 1 / 3; grid-row: 4; }
+    */
+  }
+  @media (max-width: 800px) {
+    .historia-grid, .samba-grid, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    /*
+    .bento-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+      padding: 0 0.25rem;
+    }
+    .bento-card,
+    .bento-card--featured,
+    .bento-card:nth-child(n) {
+      grid-column: 1;
+      grid-row: auto;
+      min-height: 0;
+      padding: 1.75rem 1.5rem;
+    }
+    .bento-card--featured .bento-num { font-size: 3rem; }
+    .join-banner {
+      padding: 2.5rem 1.75rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .join-banner .btn-primary { width: 100%; text-align: center; }
+    */
+    .video-modal { padding: 1rem; }
+    .video-modal-close {
+      top: 0.5rem;
+      right: 0.5rem;
+      position: fixed;
+      z-index: 302;
+    }
+    .video-modal-dialog { width: 100%; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .g-item.wide { grid-column: span 1; aspect-ratio: 1; }
+    nav {
+      padding: 0 1.25rem;
+      justify-content: flex-end;
+    }
+    .nav-toggle { display: flex; }
+    .nav-menu {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      z-index: 105;
+    }
+    .nav-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .nav-links {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      padding: 2rem;
+    }
+    .nav-links a {
+      font-size: 1.25rem;
+      padding: 0.85rem 1.75rem;
+      min-height: 48px;
+    }
+    .nav-links a::after {
+      left: 1.75rem;
+      right: 1.75rem;
+      bottom: 0.55rem;
+    }
+  }
+  @media (max-width: 500px) {
+    /*
+    .bento-grid { padding: 0; }
+    .join-banner { padding: 2rem 1.25rem; }
+    */
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-  <p>Redireccionando a Camba Cua...</p>
+
+<!-- NAV -->
+<nav>
+  <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+    <span class="nav-toggle-box" aria-hidden="true">
+      <span class="nav-toggle-line"></span>
+      <span class="nav-toggle-line"></span>
+      <span class="nav-toggle-line"></span>
+    </span>
+  </button>
+  <div class="nav-menu" id="nav-menu">
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#historia">Historia</a></li>
+      <!-- <li><a href="#comunidad">Comunidad</a></li> -->
+      <li><a href="#samba">Samba 2026</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#tienda">Tienda</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#donaciones">Donaciones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="inicio" class="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-bg-glow"></div>
+
+  <div class="hero-shields">
+    <div class="shield-wrap">
+      <div class="shield-hex">
+        <img src="assets/escudo-camba-cua.png" alt="Escudo Comparsa Camba Cua">
+      </div>
+      <span class="shield-label">Comparsa<br>Camba Cua</span>
+    </div>
+
+    <div class="hero-divider-v">
+      <div class="hero-div-line"></div>
+      <div class="hero-div-line"></div>
+    </div>
+
+    <div class="shield-wrap">
+      <div class="shield-hex">
+        <img src="assets/escudo-catedra.png" alt="Escudo Batería Cátedra del Ritmo">
+      </div>
+      <span class="shield-label">Batería<br>Cátedra del Ritmo</span>
+    </div>
+  </div>
+
+  <div class="hero-text-block">
+    <h1 class="hero-title">
+      Camba
+      <span class="hero-title-accent">Cua</span>
+    </h1>
+  </div>
+
+  <div class="hero-rule">
+    <div class="hero-rule-line"></div>
+    <span class="hero-rule-text">Batería Cátedra del Ritmo</span>
+    <div class="hero-rule-line"></div>
+  </div>
+
+  <p class="hero-founding">Fundada el 6 de Enero de 1963</p>
+  <p class="hero-place">El Pueblito · Las Palmas · Chaco · Argentina</p>
+
+  <div class="hero-cta">
+    <a href="#historia" class="btn btn-secondary">Nuestra Historia</a>
+    <a href="#donaciones" class="btn btn-primary">Apoyá la Comparsa</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<div class="split-strip"></div>
+
+<!-- HISTORIA -->
+<section id="historia" class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label">Raíces · Desde 1963</span>
+      <h2 class="section-title section-title-light">Nuestra Historia</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-gold"></div>
+        <div class="orn-line orn-line-gold-r"></div>
+      </div>
+    </div>
+
+    <div class="historia-grid">
+      <div class="historia-body reveal">
+        <p>La comparsa <em>Camba Cua</em> —cuyo nombre significa <em>"la cueva de los negros"</em> en guaraní— nació el <strong>6 de enero de 1963</strong> en el corazón de <strong>El Pueblito, Las Palmas</strong>, impulsada por la visión y el amor al carnaval de su fundador, <strong>Arsenio Fretes</strong>.</p>
+        <p>Desde sus primeros pasos, Camba Cua fue mucho más que una comparsa: se convirtió en un espacio de identidad, resistencia cultural y celebración popular. Cada año, la comunidad se vuelca en cuerpo y alma para dar vida a un espectáculo que honra sus raíces afroargentinas y chaqueñas.</p>
+        <p>La <em>Cátedra del Ritmo</em>, su batería, es reconocida como una de las más poderosas del carnaval chaqueño. Su sonido característico —disciplinado, profundo y vibrante— ha formado a generaciones de músicos y lleva la voz de la comparsa hasta el alma del corsódromo.</p>
+        <p>Más de seis décadas de historia, de inviernos de ensayo y noches de carnaval, sostienen a una comparsa que no deja de crecer.</p>
+
+        <div class="stats-row">
+          <div class="stat-box">
+            <span class="stat-num">1963</span>
+            <span class="stat-lbl">Año de Fundación</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">63+</span>
+            <span class="stat-lbl">Años de Historia</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">Las<br>Palmas</span>
+            <span class="stat-lbl" style="font-size:0.5rem;">Chaco, Argentina</span>
+          </div>
+        </div>
+
+        <div class="founder-card" style="margin-top: 1.5rem;">
+          <span class="founder-label">Fundador</span>
+          <div class="founder-name">Arsenio Fretes</div>
+          <div class="founder-place">El Pueblito · Las Palmas · Chaco</div>
+        </div>
+      </div>
+
+      <div class="historia-img-col reveal">
+        <div class="img-frame img-frame-tall">
+          <img src="assets/foto-historia.png" alt="Celebración ancestral con tambores y fuego, raíces de Camba Cua">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="split-strip"></div>
+
+<!-- COMUNIDAD - TEMPORALMENTE OCULTO -->
+<!--
+<section id="comunidad" class="sec sec-white">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label section-label-dark">La Familia</span>
+      <h2 class="section-title section-title-dark">Comunidad</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-dark"></div>
+        <div class="orn-line orn-line-dark-r"></div>
+      </div>
+      <p style="max-width:580px; color: var(--text-muted-light); font-style:italic; font-size:1.05rem;">
+        Camba Cua es un colectivo vivo formado por personas de todas las edades, barrios y realidades que se unen bajo la misma bandera.
+      </p>
+    </div>
+
+    <div class="bento-grid reveal">
+      <article class="bento-card bento-card--featured">
+        <span class="bento-num">01</span>
+        <h3 class="bento-name">Batería</h3>
+        <p class="bento-desc">El corazón que marca el tiempo. La Cátedra del Ritmo.</p>
+      </article>
+      <article class="bento-card">
+        <span class="bento-num">02</span>
+        <h3 class="bento-name">Bailarines</h3>
+        <p class="bento-desc">El cuerpo y el movimiento que dan vida al samba enredo.</p>
+      </article>
+      <article class="bento-card">
+        <span class="bento-num">03</span>
+        <h3 class="bento-name">Carrozas y Arte</h3>
+        <p class="bento-desc">Artesanos que construyen los sueños con sus manos.</p>
+      </article>
+      <article class="bento-card">
+        <span class="bento-num">04</span>
+        <h3 class="bento-name">Reinas y Reyes</h3>
+        <p class="bento-desc">Figuras que encarnan el espíritu de la comparsa.</p>
+      </article>
+      <article class="bento-card">
+        <span class="bento-num">05</span>
+        <h3 class="bento-name">Costurería</h3>
+        <p class="bento-desc">Las manos que crean las alas: los trajes y disfraces.</p>
+      </article>
+      <article class="bento-card">
+        <span class="bento-num">06</span>
+        <h3 class="bento-name">Puxadores</h3>
+        <p class="bento-desc">Las voces que llevan el samba enredo hacia el cielo.</p>
+      </article>
+    </div>
+
+    <div class="join-banner reveal">
+      <div class="join-text">
+        <h3>¿Querés ser parte?</h3>
+        <p>Las puertas de Camba Cua están abiertas. Escribinos y sumáte a la familia.</p>
+      </div>
+      <a href="#contacto" class="btn btn-primary">Contactanos</a>
+    </div>
+  </div>
+</section>
+-->
+
+<div class="split-strip"></div>
+
+<!-- SAMBA ENREDO 2026 -->
+<section id="samba" class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="samba-grid">
+      <div class="samba-content reveal">
+        <div class="info-wrapper">
+          <div class="samba-year-bg">2026</div>
+          <span class="section-label">Samba Enredo · Carnaval 2026</span>
+          <h2 class="section-title section-title-gold" style="font-size: clamp(1.6rem,3vw,2.5rem);">La Historia<br>de la Música</h2>
+          <div class="ornament">
+            <div class="orn-line orn-line-gold" style="max-width:80px"></div>
+            <div class="orn-line orn-line-gold-r" style="max-width:80px"></div>
+          </div>
+
+          <p class="samba-desc">
+            Para el Carnaval 2026, Camba Cua sumerge a su público en un viaje por los ritmos que hicieron historia: desde las primeras percusiones ancestrales hasta los géneros que mueven al mundo hoy. Un homenaje al poder universal de la música.
+          </p>
+
+          <div class="samba-meta">
+            <div class="meta-item">
+              <span class="meta-label">Temática</span>
+              <span class="meta-val">La Historia de la Música</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Edición</span>
+              <span class="meta-val">Carnaval 2026</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Sede</span>
+              <span class="meta-val">Las Palmas, Chaco</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-secondary letra-toggle" id="letra-toggle" aria-expanded="false" style="margin-top: 2rem;">
+            Leer letra completa
+          </button>
+        </div>
+      </div>
+
+      <div class="samba-visual reveal">
+        <button type="button" class="video-card" id="samba-video-trigger" aria-label="Reproducir Samba Enredo 2026">
+          <span class="video-card-bg" style="background-image: url('https://img.youtube.com/vi/GLEoOCnqfbc/maxresdefault.jpg');"></span>
+          <span class="video-card-overlay"></span>
+          <span class="video-card-play" aria-hidden="true">
+            <span class="video-card-play-icon"></span>
+          </span>
+        </button>
+
+        <div class="video-credits">
+          <div class="video-credit-item">Estudio: <span>Studio ULIODARA</span></div>
+          <div class="video-credit-item">Compositores: <span>Cátedra del Ritmo</span> & <span>Bruno González</span></div>
+          <div class="video-credit-item">Producción: <span>Emmanuel Ruiz</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="split-strip"></div>
+
+<!-- GALERÍA -->
+<section id="galeria" class="sec sec-white">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label section-label-dark">Imágenes</span>
+      <h2 class="section-title section-title-dark">Galería de Fotos</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-dark"></div>
+        <div class="orn-line orn-line-dark-r"></div>
+      </div>
+      <p style="color:var(--text-muted-light); font-style:italic; max-width:500px;">
+        Momentos eternizados en cada destello. La magia de Camba Cua capturada por el ojo del fotógrafo.
+      </p>
+    </div>
+
+    <!--
+      GALERÍA: Reemplazar cada <div class="g-ph"> por <img src="URL" alt="...">
+      cuando el fotógrafo comparta los links.
+    -->
+    <div class="gallery-grid reveal">
+      <div class="g-item tall">
+        <div class="g-ph">Foto 1<br>Vertical</div>
+      </div>
+      <div class="g-item">
+        <div class="g-ph">Foto 2</div>
+      </div>
+      <div class="g-item">
+        <div class="g-ph">Foto 3</div>
+      </div>
+      <div class="g-item wide">
+        <div class="g-ph">Foto 4 — Panorámica</div>
+      </div>
+      <div class="g-item">
+        <div class="g-ph">Foto 5</div>
+      </div>
+      <div class="g-item">
+        <div class="g-ph">Foto 6</div>
+      </div>
+      <div class="g-item">
+        <div class="g-ph">Foto 7</div>
+      </div>
+    </div>
+
+    <div class="gallery-note reveal">
+      <span>Las fotos se cargan cuando el fotógrafo comparta los links. Para agregar imágenes, reemplazar cada bloque <code>g-ph</code> con una etiqueta <code>&lt;img src="URL"&gt;</code>.</span>
+    </div>
+  </div>
+</section>
+
+<div class="split-strip"></div>
+
+<!-- TIENDA -->
+<section id="tienda" class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label">Merch Oficial</span>
+      <h2 class="section-title section-title-light">La Tienda</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-gold"></div>
+        <div class="orn-line orn-line-gold-r"></div>
+      </div>
+    </div>
+
+    <div class="tienda-coming reveal">
+      <div class="tienda-coming-icon">Merch</div>
+      <h3>Tienda en preparación</h3>
+      <p>El merch oficial de Camba Cua está en camino. Remeras, buzos, gorras y más. Dejá tu mail y te avisamos cuando esté disponible.</p>
+      <div class="tienda-notify">
+        <input class="tienda-input" type="email" placeholder="tu@correo.com">
+        <button class="tienda-input-btn">Avisame</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="split-strip"></div>
+
+<!-- AGENDA -->
+<section id="agenda" class="sec sec-white">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label section-label-dark">Fechas y Avisos</span>
+      <h2 class="section-title section-title-dark">Agenda</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-dark"></div>
+        <div class="orn-line orn-line-dark-r"></div>
+      </div>
+    </div>
+
+    <div class="agenda-coming reveal">
+      <div class="agenda-coming-icon">Calendario</div>
+      <h3>Próximamente se publicarán las fechas</h3>
+      <p>Estamos preparando el calendario de ensayos, presentaciones y eventos. Seguinos en redes o dejá tu mail para no perderte nada.</p>
+    </div>
+
+    <div class="agenda-subscribe reveal">
+      <h3>Recibí los avisos</h3>
+      <p>Anotate y te avisamos de novedades, ensayos y fechas del carnaval.</p>
+      <input class="input-dark" type="text" placeholder="Tu nombre">
+      <input class="input-dark" type="email" placeholder="Tu correo electrónico">
+      <button class="btn" style="width:100%; text-align:center;">Suscribirme</button>
+    </div>
+  </div>
+</section>
+
+<div class="split-strip"></div>
+
+<!-- DONACIONES -->
+<section id="donaciones" class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label">Apoyanos</span>
+      <h2 class="section-title section-title-light">Donaciones</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-gold"></div>
+        <div class="orn-line orn-line-gold-r"></div>
+      </div>
+      <p style="color:var(--text-muted-dark); font-style:italic; max-width:540px; font-size:1.05rem;">
+        Camba Cua vive gracias al amor y al esfuerzo de su comunidad. Cada aporte se convierte en trajes, tambores, ensayos y carnaval.
+      </p>
+    </div>
+
+    <div class="donaciones-coming reveal">
+      <h3>Medios de pago en configuración</h3>
+      <p>Estamos preparando los canales de donación. Pronto vas a poder apoyar a la comparsa por transferencia, MercadoPago y efectivo.</p>
+
+      <div class="donaciones-methods">
+        <div class="don-method">
+          <div class="don-method-icon">MP</div>
+          <div class="don-method-name">MercadoPago</div>
+          <div class="don-method-detail">Próximamente</div>
+        </div>
+        <div class="don-method">
+          <div class="don-method-icon">CBU</div>
+          <div class="don-method-name">Transferencia</div>
+          <div class="don-method-detail">Próximamente</div>
+        </div>
+        <div class="don-method">
+          <div class="don-method-icon">Efe</div>
+          <div class="don-method-name">Efectivo</div>
+          <div class="don-method-detail">Consultanos</div>
+        </div>
+      </div>
+
+      <a href="#contacto" class="btn" style="margin-top:1rem;">Contactanos para donar</a>
+    </div>
+  </div>
+</section>
+
+<div class="split-strip"></div>
+
+<!-- CONTACTO -->
+<section id="contacto" class="sec sec-white">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="section-label section-label-dark">Hablemos</span>
+      <h2 class="section-title section-title-dark">Contacto</h2>
+      <div class="ornament">
+        <div class="orn-line orn-line-dark"></div>
+        <div class="orn-line orn-line-dark-r"></div>
+      </div>
+    </div>
+
+    <div class="contacto-grid">
+      <!-- Formulario (usa Formspree cuando tengas el endpoint) -->
+      <div class="contacto-form reveal">
+        <div class="form-row">
+          <input class="input-light" type="text" placeholder="Nombre">
+          <input class="input-light" type="text" placeholder="Apellido">
+        </div>
+        <input class="input-light" type="email" placeholder="Correo electrónico">
+        <input class="input-light" type="text" placeholder="Asunto">
+        <textarea class="input-light" placeholder="Mensaje..."></textarea>
+        <!--
+          Para activar el envío real, envolver en:
+          <form action="https://formspree.io/f/TU_ID" method="POST">
+          y cambiar el button por <button type="submit">
+        -->
+        <button class="btn btn-on-light">Enviar mensaje</button>
+      </div>
+
+      <!-- Links de contacto -->
+      <div class="contacto-links reveal">
+        <a class="contact-link-item" href="mailto:cambacuacomparsa@gmail.com">
+          <div class="cl-icon">Mail</div>
+          <div class="cl-body">
+            <span class="cl-platform">Email</span>
+            <span class="cl-handle">cambacuacomparsa@gmail.com</span>
+          </div>
+        </a>
+
+        <a class="contact-link-item" href="https://www.instagram.com/asociacioncivil_cambacua" target="_blank" rel="noopener">
+          <div class="cl-icon">ig</div>
+          <div class="cl-body">
+            <span class="cl-platform">Instagram — Comparsa</span>
+            <span class="cl-handle">@asociacioncivil_cambacua</span>
+          </div>
+        </a>
+
+        <a class="contact-link-item" href="https://www.instagram.com/catedradelritmo_" target="_blank" rel="noopener">
+          <div class="cl-icon">ig</div>
+          <div class="cl-body">
+            <span class="cl-platform">Instagram — Batería</span>
+            <span class="cl-handle">@catedradelritmo_</span>
+          </div>
+        </a>
+
+        <a class="contact-link-item" href="https://www.tiktok.com/@cambacua2025" target="_blank" rel="noopener">
+          <div class="cl-icon">tt</div>
+          <div class="cl-body">
+            <span class="cl-platform">TikTok</span>
+            <span class="cl-handle">@cambacua2025</span>
+          </div>
+        </a>
+
+        <a class="contact-link-item" href="https://www.youtube.com/@CambaCua1963" target="_blank" rel="noopener">
+          <div class="cl-icon">yt</div>
+          <div class="cl-body">
+            <span class="cl-platform">YouTube</span>
+            <span class="cl-handle">@CambaCua1963</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">Camba <span>Cua</span></div>
+        <span class="footer-founding">Fundada el 6 de Enero de 1963</span>
+        <p class="footer-tagline">El Pueblito · Las Palmas · Chaco. Batería Cátedra del Ritmo. Tradición, ritmo e identidad desde 1963.</p>
+        <div class="social-row">
+          <a class="soc-link" href="https://www.instagram.com/asociacioncivil_cambacua" target="_blank" title="Instagram Comparsa">ig</a>
+          <a class="soc-link" href="https://www.instagram.com/catedradelritmo_" target="_blank" title="Instagram Batería">cr</a>
+          <a class="soc-link" href="https://www.tiktok.com/@cambacua2025" target="_blank" title="TikTok">tt</a>
+          <a class="soc-link" href="https://www.youtube.com/@CambaCua1963" target="_blank" title="YouTube">yt</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>La Comparsa</h4>
+        <ul>
+          <li><a href="#historia">Historia</a></li>
+          <!-- <li><a href="#comunidad">Comunidad</a></li> -->
+          <li><a href="#samba">Samba 2026</a></li>
+          <li><a href="#galeria">Galería</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Participar</h4>
+        <ul>
+          <li><a href="#tienda">Tienda</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#donaciones">Donaciones</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Redes</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/asociacioncivil_cambacua" target="_blank">Instagram Comparsa</a></li>
+          <li><a href="https://www.instagram.com/catedradelritmo_" target="_blank">Instagram Batería</a></li>
+          <li><a href="https://www.tiktok.com/@cambacua2025" target="_blank">TikTok</a></li>
+          <li><a href="https://www.youtube.com/@CambaCua1963" target="_blank">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Camba Cua · El Pueblito, Las Palmas, Chaco · Hecho en el Chaco</p>
+      <p>Batería <span>·</span> Cátedra del Ritmo</p>
+    </div>
+  </div>
+</footer>
+
+<div class="video-modal" id="video-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Reproductor de video">
+  <div class="video-modal-backdrop" id="video-modal-backdrop"></div>
+  <div class="video-modal-dialog">
+    <button type="button" class="video-modal-close" id="video-modal-close" aria-label="Cerrar video">&times;</button>
+    <div class="video-modal-embed">
+      <iframe id="video-modal-iframe" title="Samba Enredo 2026 — Camba Cua" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="letra-modal" id="letra-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Letra del Samba">
+  <div class="letra-modal-backdrop" id="letra-modal-backdrop"></div>
+  <div class="letra-modal-dialog">
+    <button type="button" class="letra-modal-close" id="letra-modal-close" aria-label="Cerrar letra">&times;</button>
+    <div class="letra-modal-content">
+      <h2 class="letra-modal-title">LETRA DEL SAMBA</h2>
+      <div class="letra-modal-body">
+        
+<p>
+  OIE OIE OIEE, OIE OIE OIAAA<br>
+  OIE OIE OIEE, VIENE LLEGANDO LA COMUNIDAD<br>
+  OIE OIE OIEE, OIE OIE OIAAA<br>
+  OIE OIE OIEE, VIENE LLEGANDO LA COMUNIDAD
+</p>
+
+<p>
+  VIENE LLEGANDO LA COMUNIDAD<br>
+  TODO ESE PUEBLO QUEDA ENCANTADO<br>
+  TOQUE Y VALOR, BAQUE SAGRADO<br>
+  NEGRO Y BLANCO MI CORAZON (X2)
+</p>
+
+<p>
+  DESDE EL PRINCIPIO DE LOS TIEMPOS<br>
+  ELLA NACIO PARA BRINDAR<br>
+  RITUALES, REUNIONES<br>
+  PODERES Y DONES<br>
+  A TODA LA HUMANIDAD
+</p>
+
+<p>
+  SONARON TAMBORES EN LA ANTIGÜEDAD<br>
+  FUERON LAS MUSAS QUE TE HICIERON BRILLAR<br>
+  CANTOS SAGRADOS, CANTOS GREGORIANOS<br>
+  CON TODA DEVOCION<br>
+  BACH, MOZART Y BEETHOVEN<br>
+  HEROES DEL CONOCIMIENTO<br>
+  JAZZ, GUITARRAS Y DISTORCIONES<br>
+  ANUNCIAN UN NUEVO MOVIMIENTO<br>
+  MUSA MUSA QUE ES EL ALMA DE LA GENTE<br>
+  QUE VIBRA EN CADA CORAZON
+</p>
+
+<p>
+  DESDE RITOS ANCESTRALES A SONIDOS DIGITALES<br>
+  LA MUSICA ES EL LENGUAJE MAS SUBLIME<br>
+  QUE UNE LA HUMANIDAD, CLASICO Y POPULAR<br>
+  CANTA PA’ BAILAR Y GOZAR (x2)
+</p>
+
+<p>
+  ELLA ES EL FUEGO QUE ARDE EN CADA SER<br>
+  ES EL RITMO QUE NOS UNE,<br>
+  TRAEMOS CANDOMBES, SAMBA Y CHAMAME<br>
+  OIE OIE OOOIIAAA
+</p>
+
+<p>
+  LA MUSICA ES HISTORIA QUE SE CUENTA CADA DIA,<br>
+  EN CADA NOTA NOS DEJA UN LEGADO<br>
+  ES MI SAMBA ARRAZANDO EN LA AVENIDA,<br>
+  PASION POR MI BATERIA
+</p>
+
+<hr style="border: 0; border-top: 1px solid var(--gold); margin: 2rem 0; opacity: 0.5;">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Menú móvil
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  function setNavOpen(open) {
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    navMenu.classList.toggle('is-open', open);
+    document.body.classList.toggle('nav-open', open);
+  }
+
+  navToggle.addEventListener('click', () => {
+    setNavOpen(navToggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => setNavOpen(false));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (videoModal.classList.contains('is-open')) {
+        closeVideoModal();
+      } else if (letraModal.classList.contains('is-open')) {
+        closeLetraModal();
+      } else if (navMenu.classList.contains('is-open')) {
+        setNavOpen(false);
+      }
+    }
+  });
+
+  // Video modal — Samba 2026
+  const videoModal = document.getElementById('video-modal');
+  const videoTrigger = document.getElementById('samba-video-trigger');
+  const videoIframe = document.getElementById('video-modal-iframe');
+  const videoClose = document.getElementById('video-modal-close');
+  const videoBackdrop = document.getElementById('video-modal-backdrop');
+  const SAMBA_VIDEO_ID = 'GLEoOCnqfbc';
+
+  function openVideoModal() {
+    videoIframe.src = `https://www.youtube.com/embed/${SAMBA_VIDEO_ID}?autoplay=1&rel=0`;
+    videoModal.classList.add('is-open');
+    videoModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('nav-open');
+    videoClose.focus();
+  }
+
+  function closeVideoModal() {
+    videoModal.classList.remove('is-open');
+    videoModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('nav-open');
+    videoIframe.src = '';
+    videoTrigger.focus();
+  }
+
+  videoTrigger.addEventListener('click', openVideoModal);
+  videoClose.addEventListener('click', closeVideoModal);
+  videoBackdrop.addEventListener('click', closeVideoModal);
+
+  // Lyrics modal — Samba 2026
+  const letraModal = document.getElementById('letra-modal');
+  const letraToggle = document.getElementById('letra-toggle');
+  const letraClose = document.getElementById('letra-modal-close');
+  const letraBackdrop = document.getElementById('letra-modal-backdrop');
+
+  function openLetraModal() {
+    letraModal.classList.add('is-open');
+    letraModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('nav-open');
+    letraClose.focus();
+  }
+
+  function closeLetraModal() {
+    letraModal.classList.remove('is-open');
+    letraModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('nav-open');
+    letraToggle.focus();
+  }
+
+  letraToggle.addEventListener('click', openLetraModal);
+  letraClose.addEventListener('click', closeLetraModal);
+  letraBackdrop.addEventListener('click', closeLetraModal);
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(r => obs.observe(r));
+
+  // Stagger grid children
+  document.querySelectorAll('.bento-grid .bento-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+    el.classList.add('reveal');
+    obs.observe(el);
+  });
+</script>
 </body>
 </html>
