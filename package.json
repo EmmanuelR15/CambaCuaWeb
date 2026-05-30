@@ -1,0 +1,12 @@
+{
+  "name": "camba-cua",
+  "version": "1.0.0",
+  "description": "Sitio web de Camba Cua",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
