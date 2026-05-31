@@ -30,7 +30,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     background: radial-gradient(circle at center, #121212 0%, #000000 100%);
@@ -695,7 +695,6 @@
     padding-top: 1.5rem;
     border-top: 1px solid rgba(200,153,31,0.2);
   }
-  .meta-item {}
   .meta-label {
     font-family: 'Cinzel', serif;
     font-size: 0.58rem;
@@ -1197,7 +1196,7 @@
   }
   .agenda-card-btn {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
+    padding: 0.85rem 1.5rem;
     background: transparent;
     border: 1px solid #d4af37;
     color: #d4af37;
@@ -1209,6 +1208,8 @@
     border-radius: 4px;
     transition: all 0.3s;
     text-align: center;
+    min-height: 44px;
+    min-width: 44px;
   }
   .agenda-card-btn:hover {
     background: #d4af37;
@@ -1337,7 +1338,6 @@
   .cl-icon i {
     font-size: 1.2rem;
   }
-  .cl-body {}
   .cl-platform {
     font-family: 'Cinzel', serif;
     font-size: 0.62rem;
@@ -1615,6 +1615,34 @@
     */
     .stats-row { flex-wrap: wrap; }
     .footer-top { grid-template-columns: 1fr; }
+  }
+
+  /* ── MOBILE (max-width: 600px) ── */
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .sec { padding: 5rem 1.5rem; }
+    .sec-inner { padding: 0 0.5rem; }
+    .section-title { font-size: 1.8rem; }
+    .agenda-card { padding: 1.5rem; gap: 2rem; }
+    .agenda-card-title { font-size: 1.2rem; }
+    .agenda-card-body { font-size: 0.95rem; }
+    .contacto-grid { gap: 2rem; }
+    .cl-icon { width: 36px; height: 36px; }
+    .cl-icon i { font-size: 1rem; }
+    .soc-link { width: 36px; height: 36px; }
+  }
+
+  /* ── TABLET (601px - 1024px) ── */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    .sec { padding: 6rem 2rem; }
+    .section-title { font-size: 2rem; }
+    .agenda-card { gap: 2.5rem; }
+  }
+
+  /* ── DESKTOP (min-width: 1025px) ── */
+  @media (min-width: 1025px) {
+    .sec { padding: 7rem 2rem; }
+    .section-title { font-size: 2.2rem; }
   }
 
   /* ── CUSTOM SCROLLBAR ── */
