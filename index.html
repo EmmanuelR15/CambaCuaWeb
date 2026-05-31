@@ -30,7 +30,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; overflow-x: hidden; }
+  html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 
   body {
     background: radial-gradient(circle at center, #121212 0%, #000000 100%);
@@ -39,6 +39,7 @@
     font-size: 18px;
     line-height: 1.7;
     overflow-x: hidden;
+    max-width: 100%;
     overflow-y: auto;
   }
 
@@ -209,6 +210,7 @@
   .shield-hex {
     width: 130px;
     height: 130px;
+    max-width: 100%;
     position: relative;
     display: flex;
     align-items: center;
@@ -381,7 +383,7 @@
 
   /* ── SHARED SECTION STYLES ── */
   .sec { padding: 7rem 2rem; }
-  .sec-inner { max-width: 1080px; margin: 0 auto; }
+  .sec-inner { max-width: 1080px; margin: 0 auto; width: 100%; }
   .sec-dark { background: var(--black); }
   .sec-mid { background: var(--black-soft); }
   .sec-white { background: var(--white); color: var(--text-on-light); }
@@ -1405,7 +1407,7 @@
     border-top: 1px solid rgba(212, 175, 55, 0.2);
     padding: 4rem 2rem 2.5rem;
   }
-  .footer-inner { max-width: 1080px; margin: 0 auto; }
+  .footer-inner { max-width: 1080px; margin: 0 auto; width: 100%; }
   .footer-top {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1630,6 +1632,72 @@
     .cl-icon { width: 36px; height: 36px; }
     .cl-icon i { font-size: 1rem; }
     .soc-link { width: 36px; height: 36px; }
+  }
+
+  /* ── MOBILE FIX (max-width: 768px) ── */
+  @media (max-width: 768px) {
+    /* Logotipos circulares - reducir al 35-45% del original */
+    .shield-hex {
+      width: 55px;
+      height: 55px;
+    }
+    .shield-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* Tipografía del hero */
+    .hero-title {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+    .hero-rule-text {
+      font-size: 0.75rem;
+    }
+    .hero-founding {
+      font-size: 0.75rem;
+    }
+    .hero-place {
+      font-size: 0.85rem;
+    }
+
+    /* Espaciado - padding vertical max 1.5rem, márgenes laterales min 1rem */
+    .sec {
+      padding: 1.5rem 1rem;
+    }
+    .sec-inner {
+      padding: 0;
+    }
+
+    /* Botones - 90% ancho, centrados, min-height 48px */
+    .btn {
+      width: 90%;
+      margin: 0.5rem auto;
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      min-height: 48px;
+      display: block;
+    }
+    .agenda-card-btn {
+      width: 90%;
+      margin: 0.5rem auto;
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      min-height: 48px;
+    }
+
+    /* Hero section - min-height 100svh para compatibilidad móvil */
+    .hero {
+      min-height: 100svh;
+    }
+
+    /* Ajustes adicionales para móviles */
+    .hero-shields {
+      gap: 2rem;
+    }
+    .hero-cta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 
   /* ── TABLET (601px - 1024px) ── */
