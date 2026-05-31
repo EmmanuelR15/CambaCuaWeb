@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Camba Cua — Comparsa desde 1963</title>
+<title>Comparsa Camba Cua</title>
+<link rel="icon" type="image/png" href="assets/escudo-camba-cua.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
   :root {
     --gold: #C8991F;
@@ -31,12 +33,13 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--black);
+    background: radial-gradient(circle at center, #121212 0%, #000000 100%);
     color: var(--text-on-dark);
     font-family: 'Crimson Pro', Georgia, serif;
     font-size: 18px;
     line-height: 1.7;
     overflow-x: hidden;
+    overflow-y: auto;
   }
 
   /* ── NAV ── */
@@ -1157,8 +1160,9 @@
     max-width: 900px;
     margin: 3rem auto 0;
     padding: 2rem;
-    background: rgba(18, 18, 18, 0.5);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
   }
   .agenda-card-image {
@@ -1209,6 +1213,7 @@
   .agenda-card-btn:hover {
     background: #d4af37;
     color: #121212;
+    box-shadow: 0 0 15px #d4af37;
   }
   .input-dark {
     width: 100%;
@@ -1326,13 +1331,11 @@
     width: 42px; height: 42px;
     border: 1px solid rgba(0,0,0,0.15);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Cinzel', serif;
-    font-size: 0.55rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
     flex-shrink: 0;
-    color: var(--text-on-light);
+    color: #d4af37;
+  }
+  .cl-icon i {
+    font-size: 1.2rem;
   }
   .cl-body {}
   .cl-platform {
@@ -1613,9 +1616,91 @@
     .stats-row { flex-wrap: wrap; }
     .footer-top { grid-template-columns: 1fr; }
   }
+
+  /* ── CUSTOM SCROLLBAR ── */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+    border: 2px solid #000000;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e5c150;
+  }
+
+  /* ── AMBIENT BACKGROUND ── */
+  .ambient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ambient-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+  }
+  .ambient-shape-1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #d4af37 0%, transparent 70%);
+    top: -200px;
+    left: -200px;
+    animation: float1 20s ease-in-out infinite;
+  }
+  .ambient-shape-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #C8991F 0%, transparent 70%);
+    bottom: -150px;
+    right: -150px;
+    animation: float2 25s ease-in-out infinite;
+  }
+  .ambient-shape-3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #E2B84A 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float3 30s ease-in-out infinite;
+  }
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(100px, 50px) rotate(90deg); }
+    50% { transform: translate(50px, 150px) rotate(180deg); }
+    75% { transform: translate(-50px, 100px) rotate(270deg); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-80px, -60px) rotate(-90deg); }
+    50% { transform: translate(-120px, 80px) rotate(-180deg); }
+    75% { transform: translate(60px, -40px) rotate(-270deg); }
+  }
+  @keyframes float3 {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    33% { transform: translate(-30%, -60%) rotate(120deg); }
+    66% { transform: translate(-70%, -40%) rotate(240deg); }
+  }
 </style>
 </head>
 <body>
+<!-- Ambient Background -->
+<div class="ambient-background">
+  <div class="ambient-shape ambient-shape-1"></div>
+  <div class="ambient-shape ambient-shape-2"></div>
+  <div class="ambient-shape ambient-shape-3"></div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1699,7 +1784,7 @@
 <!-- HISTORIA -->
 <section id="historia" class="sec sec-dark">
   <div class="sec-inner">
-    <div class="reveal section-header">
+    <div class="reveal section-header" data-aos="fade-up">
       <span class="section-label">Raíces · Desde 1963</span>
       <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
@@ -1873,7 +1958,7 @@
 <!-- GALERÍA -->
 <section id="galeria" class="seccion-oscura">
   <div class="sec-inner">
-    <div class="reveal section-header">
+    <div class="reveal section-header" data-aos="fade-up">
       <span class="section-label">Imágenes</span>
       <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
@@ -1886,7 +1971,7 @@
     </div>
 
     <!-- Swiper Gallery -->
-    <div class="gallery-swiper reveal">
+    <div class="gallery-swiper reveal" data-aos="fade-up">
       <div class="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -1937,7 +2022,7 @@
 <!-- TIENDA -->
 <section id="tienda" class="sec sec-dark">
   <div class="sec-inner">
-    <div class="reveal section-header">
+    <div class="reveal section-header" data-aos="fade-up">
       <span class="section-label">Merch Oficial</span>
       <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
@@ -1963,7 +2048,7 @@
 <!-- AGENDA -->
 <section id="agenda" class="seccion-oscura">
   <div class="sec-inner">
-    <div class="reveal section-header">
+    <div class="reveal section-header" data-aos="fade-up">
       <span class="section-label">Fechas y Avisos</span>
       <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
@@ -1972,7 +2057,7 @@
       </div>
     </div>
 
-    <div class="agenda-card reveal">
+    <div class="agenda-card reveal" data-aos="fade-up">
       <div class="agenda-card-image">
         <img src="assets/ensayos.jpeg" alt="Escuela de Percusión - Cátedra de Ritmo" class="agenda-card-img">
       </div>
@@ -1990,7 +2075,7 @@
 <!-- DONACIONES -->
 <section id="donaciones" class="sec sec-dark">
   <div class="sec-inner">
-    <div class="reveal section-header">
+    <div class="reveal section-header" data-aos="fade-up">
       <span class="section-label">Apoyanos</span>
       <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
@@ -2034,7 +2119,7 @@
 <!-- CONTACTO -->
 <section id="contacto" class="seccion-oscura">
   <div class="sec-inner">
-    <div class="reveal section-header">
+    <div class="reveal section-header" data-aos="fade-up">
       <span class="section-label">Hablemos</span>
       <div class="section-header-title">
         <div class="orn-line orn-line-gold"></div>
@@ -2064,7 +2149,7 @@
       <!-- Links de contacto -->
       <div class="contacto-links reveal">
         <a class="contact-link-item" href="mailto:cambacuacomparsa@gmail.com">
-          <div class="cl-icon">Mail</div>
+          <div class="cl-icon"><i class="fas fa-envelope"></i></div>
           <div class="cl-body">
             <span class="cl-platform">Email</span>
             <span class="cl-handle">cambacuacomparsa@gmail.com</span>
@@ -2072,7 +2157,7 @@
         </a>
 
         <a class="contact-link-item" href="https://www.instagram.com/asociacioncivil_cambacua" target="_blank" rel="noopener">
-          <div class="cl-icon">ig</div>
+          <div class="cl-icon"><i class="fab fa-instagram"></i></div>
           <div class="cl-body">
             <span class="cl-platform">Instagram — Comparsa</span>
             <span class="cl-handle">@asociacioncivil_cambacua</span>
@@ -2080,7 +2165,7 @@
         </a>
 
         <a class="contact-link-item" href="https://www.instagram.com/catedradelritmo_" target="_blank" rel="noopener">
-          <div class="cl-icon">ig</div>
+          <div class="cl-icon"><i class="fab fa-instagram"></i></div>
           <div class="cl-body">
             <span class="cl-platform">Instagram — Batería</span>
             <span class="cl-handle">@catedradelritmo_</span>
@@ -2088,7 +2173,7 @@
         </a>
 
         <a class="contact-link-item" href="https://www.tiktok.com/@cambacua2025" target="_blank" rel="noopener">
-          <div class="cl-icon">tt</div>
+          <div class="cl-icon"><i class="fab fa-tiktok"></i></div>
           <div class="cl-body">
             <span class="cl-platform">TikTok</span>
             <span class="cl-handle">@cambacua2025</span>
@@ -2096,7 +2181,7 @@
         </a>
 
         <a class="contact-link-item" href="https://www.youtube.com/@CambaCua1963" target="_blank" rel="noopener">
-          <div class="cl-icon">yt</div>
+          <div class="cl-icon"><i class="fab fa-youtube"></i></div>
           <div class="cl-body">
             <span class="cl-platform">YouTube</span>
             <span class="cl-handle">@CambaCua1963</span>
@@ -2334,6 +2419,7 @@
   });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   const gallerySwiper = new Swiper('.gallery-swiper .swiper', {
     loop: true,
@@ -2351,6 +2437,10 @@
         slidesPerView: 3,
       },
     },
+  });
+  AOS.init({
+    duration: 800,
+    once: true,
   });
 </script>
 </body>
